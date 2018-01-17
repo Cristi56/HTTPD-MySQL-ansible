@@ -1,0 +1,5 @@
+domain: exemple.ro
+http_port: 8080
+#apache_vhosts:
+#    - {servername: "domain.tld", documentroot: "/var/www/domain"}
+#    - {servername: "otherdomain.tld", documentroot: "/var/www/otherdomain"}

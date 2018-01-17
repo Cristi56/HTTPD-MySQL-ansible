@@ -1,0 +1,49 @@
+---
+- name: install mariaDB
+  package:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - mariadb-server
+    - mariadb
+    - MySQL-python.x86_64
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+
+- name: Start MariaDB
+  service:
+    name: mariadb
+    enabled: yes
+    state: started
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+
+- name: install mysql
+  package:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - mysql-server
+    - mysql-client
+    - python-mysqldb
+  notify:
+  - enable and start mysql
+  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
+#- name: Start MySQL
+#  service:
+#    name: mysql
+#    enabled: yes
+#    state: started
+#  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
+- copy: 
+    src: ans-backup.sql
+    dest: /home/ansible/mysqldump/ans-backup.sql
+    owner: root
+    group: root
+
+- name: Import ansibleDB
+  mysql_db:
+    name: ansibleDB
+    state: import
+    target: /home/ansible/mysqldump/ans-backup.sql
+

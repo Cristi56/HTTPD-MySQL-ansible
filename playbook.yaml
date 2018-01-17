@@ -1,0 +1,30 @@
+--- # Main playbook for installing apache 
+- hosts: local 
+  remote_user: ansible
+  become: yes
+  become_method: sudo
+  gather_facts: yes
+  connection: ssh 
+  roles:
+  - mysql
+  - apache
+
+#  tasks:
+#  - name: install mariaDB
+#    package:
+#      name: "{{ item }}"
+#      state: latest
+#    with_items:
+#               - mariadb-server
+#               - mariadb
+#               - MySQL-python.x86_64
+#    notify:
+#    - enable and start mariadb
+#  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+#  
+#  handlers:
+#  - name: enable and start mariadb
+#    service:
+#      name: mariadb
+#      enabled: yes
+#      state: restarted

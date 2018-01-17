@@ -1,0 +1,9 @@
+NameVirtualHost *:80
+
+
+<VirtualHost *:{{ http_port }}>
+    ServerAdmin webmaster@{{ domain }}
+    ServerName {{ domain }}
+    ServerAlias {{ domain }}
+    DocumentRoot /var/www/{{ domain }}
+</VirtualHost>

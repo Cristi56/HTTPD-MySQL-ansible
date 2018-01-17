@@ -1,0 +1,12 @@
+--- # restart handlers
+- name: enable and start mysql
+  service:
+    name: mysql
+    enabled: yes
+    state: restarted
+
+- name: enable and start mariadb
+  service:
+    name: mariadb
+    enabled: yes
+    state: restarted
